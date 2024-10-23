@@ -12,7 +12,7 @@ export default function HomeScreen() {
   const LogoName = require('../assets/images/Logo2.png');
   const UnderLinePath = require('../assets/images/path.png');
   return (
-    <SafeAreaView className='bg-primary-100' style={{backgroundColor:'#211f24', height:'100%'}}>
+    <SafeAreaView className='bg-primary-100' style={{ backgroundColor: '#211f24', height: '100%' }}>
       <ScrollView contentContainerStyle={{ height: '100%' }}>
         <View style={{ paddingHorizontal: 16 }} className='w-full flex-col justify-center items-center h-full relative'>
           <View className='w-full flex-row justify-center items-center absolute' style={{ top: 50 }}
@@ -55,7 +55,7 @@ export default function HomeScreen() {
           </Text>
           <CustomButton
             title="Continue with email"
-            handlePress={()=> router.push('/sign-in')}
+            handlePress={() => router.push('/sign-in')}
           />
         </View>
       </ScrollView>
