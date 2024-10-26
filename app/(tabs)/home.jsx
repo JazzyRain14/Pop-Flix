@@ -10,40 +10,40 @@ import enders from '../../assets/images/enders.jpeg'
 import { Ionicons } from '@expo/vector-icons'
 import Carousel from 'react-native-reanimated-carousel'
 import axios from 'axios'
+import NowPayingVideos from '../../components/HomeComponents/NowPlayingVideos'
 import TrendingVideos from '../../components/HomeComponents/TrendingVideos'
-import TrendingVideosII from '../../components/HomeComponents/TrendingVideosII'
 
 const Home = () => {
     const [movies, setMovies] = useState([])
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const getTrendingMovies = async () => {
-            try {
-                setIsLoading(true);
-                const response = await axios.get('https://api.themoviedb.org/3/trending/movie/day',
-                    {
-                        params: { language: 'en-US' },
-                        headers: {
-                            Accept: 'application/json',
-                            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNzVkOTM4NzIzOTRlNjFiNmU1Nzg3OWMzNDA3NDhiNCIsIm5iZiI6MTcyOTIyNjkzOC43NTAyLCJzdWIiOiI2NzEwNWViY2RiNzljOWNlYWUwZWMyMWQiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.pznTWJSUZe2wBsbvZ9RZsY5-tDa7_-zouGBdaLIBU-A'
-                        }
-                    });
-                console.log(response.data.results)
-                setMovies(response.data.results);
-                setIsLoading(false);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                setError(error.message); // Set error state
-                setIsLoading(false);
-            }
-        };
+    // useEffect(() => {
+    //     const getTrendingMovies = async () => {
+    //         try {
+    //             setIsLoading(true);
+    //             const response = await axios.get('https://api.themoviedb.org/3/trending/movie/day',
+    //                 {
+    //                     params: { language: 'en-US' },
+    //                     headers: {
+    //                         Accept: 'application/json',
+    //                         Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNzVkOTM4NzIzOTRlNjFiNmU1Nzg3OWMzNDA3NDhiNCIsIm5iZiI6MTcyOTIyNjkzOC43NTAyLCJzdWIiOiI2NzEwNWViY2RiNzljOWNlYWUwZWMyMWQiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.pznTWJSUZe2wBsbvZ9RZsY5-tDa7_-zouGBdaLIBU-A'
+    //                     }
+    //                 });
+    //             console.log(response.data.results)
+    //             setMovies(response.data.results);
+    //             setIsLoading(false);
+    //         } catch (error) {
+    //             console.error('Error fetching data:', error);
+    //             setError(error.message); // Set error state
+    //             setIsLoading(false);
+    //         }
+    //     };
 
-        getTrendingMovies();
-    }, []);
+    //     getTrendingMovies();
+    // }, []);
 
-    const width = Dimensions.get('window').width
+    // const width = Dimensions.get('window').width
     // const images = [
     //     {
     //         name: 'the platform',
@@ -103,7 +103,7 @@ const Home = () => {
         <>
             <SafeAreaView
                 className='bg-primary-100' style={{ backgroundColor: '#211f24', height: '100%', flex:1 }}>
-                <ScrollView contentContainerStyle={{ height: "100%" }}>
+                <ScrollView>
                     <View style={{ paddingHorizontal: 16, justifyContent: 'space-between', marginVertical: 28, overflow: 'hidden' }} className='border border-white'>
                         <View>
                             <View style={styles.Home_Header}>
@@ -126,10 +126,8 @@ const Home = () => {
                                 <Ionicons name='search' size={24} color="white" />
                             </View>
                         </View>
-                        {/* {!isLoading ? <TrendingVideos /> : <ActivityIndicator size={'large'} />} */}
-                        <TrendingVideosII/>
-                        {/* <TrendingVideosII/>
-                        <TrendingVideosII/> */}
+                        <NowPayingVideos/>
+                        {!isLoading ? <TrendingVideos /> : <ActivityIndicator size={'large'} />}
                     </View>
                 </ScrollView>
             </SafeAreaView>
