@@ -4,10 +4,8 @@ import { Ionicons } from '@expo/vector-icons'
 import axios from 'axios'
 import { PureComponent } from 'react'
 
-
-const TrendingVideos = () => {
+const TopRatedVideos = () => {
     const [isLoading, setIsLoading] = useState(true);
-    // const [isLoadingMore, setIsLoadingMore] = useState(true);
     const [movies, setMovies] = useState([])
     const [currentPageMovies, setCurrentPageMovies] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -54,7 +52,7 @@ const TrendingVideos = () => {
     const getTrendingMovies = async () => {
         try {
             setIsLoading(true)
-            const response = await axios.get(`https://api.themoviedb.org/3/movie/now_playing`, {
+            const response = await axios.get(`https://api.themoviedb.org/3/movie/top_rated`, {
                 params: {
                     language: 'en-US',
                     page: currentPage,
@@ -100,30 +98,32 @@ const TrendingVideos = () => {
 
 
     return (
-        <View style={{marginBottom:30}}>
-            <Text className='text-white mb-4 font-psemibold text-lg'>Now Playing</Text>
-            <View className='h-[300px]'>
-                <FlatList
-                    data={movies}
-                    snapToAlignment='center'
-                    bounces={false}
-                    horizontal
-                    pagingEnabled
-                    showsHorizontalScrollIndicator={false}
-                    // onScroll={handleScroll}
-                    scrollEventThrottle={2}
-                    keyExtractor={(item) => {
-                        return `${item.id} - ${Math.random(5)}`
-                    }}
-                    // ref={flatListRef}
-                    renderItem={({ item }) => (
-                        <MovieListItem key={item.id} item={item} roundedRating={getRoundedRating(item)} />
-                    )}
-                    ListFooterComponent={RenderSeeMore}
-                />
+        <>
+            <View style={{marginBottom:30}}>
+                <Text className='text-white mb-4 font-psemibold text-lg'>Top Rated 🔥</Text>
+                <View className='h-[300px]'>
+                    <FlatList
+                        data={movies}
+                        snapToAlignment='center'
+                        bounces={false}
+                        horizontal
+                        pagingEnabled
+                        showsHorizontalScrollIndicator={false}
+                        // onScroll={handleScroll}
+                        scrollEventThrottle={2}
+                        keyExtractor={(item) => {
+                            return `${item.id} - ${Math.random(5)}`
+                        }}
+                        // ref={flatListRef}
+                        renderItem={({ item }) => (
+                            <MovieListItem key={item.id} item={item} roundedRating={getRoundedRating(item)} />
+                        )}
+                        ListFooterComponent={RenderSeeMore}
+                    />
+                </View>
             </View>
-        </View>
+        </>
     )
 }
 
-export default TrendingVideos
+export default TopRatedVideos

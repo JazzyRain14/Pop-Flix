@@ -2,6 +2,7 @@ import { ActivityIndicator, Dimensions, FlatList, Image, StyleSheet, Text, Touch
 import axios from 'axios'
 import React, { PureComponent, useEffect, useRef, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
+import MyLoader from '../MyLoader'
 
 
 class MovieListItem extends PureComponent {
@@ -36,7 +37,7 @@ class MovieListItem extends PureComponent {
 
 const TrendingVideosII = () => {
     const [movies, setMovies] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
     const flatListRef = useRef(null);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -80,10 +81,10 @@ const TrendingVideosII = () => {
     return (
         <>
             {error ? (<Text className='text-popred'>{error}</Text>) :
-                isLoading ? (<Text className='text-white'>isLoading</Text>)
+                isLoading ? (<MyLoader/>)
                     : (
-                        <View>
-                            <Text className='text-white mb-4 font-pregular text-lg'>Trending  Movies</Text>
+                        <View style={{marginBottom:30}}>
+                            <Text className='text-white mb-4 font-psemibold text-lg'>Trending  Movies</Text>
                             <View className='min-h-[200px]'>
                                 <FlatList
                                     data={movies}

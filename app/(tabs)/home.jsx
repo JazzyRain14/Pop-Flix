@@ -12,6 +12,8 @@ import Carousel from 'react-native-reanimated-carousel'
 import axios from 'axios'
 import NowPayingVideos from '../../components/HomeComponents/NowPlayingVideos'
 import TrendingVideos from '../../components/HomeComponents/TrendingVideos'
+import TopRatedVideos from '../../components/HomeComponents/TopRatedVideos'
+import { StatusBar } from 'expo-status-bar'
 
 const Home = () => {
     const [movies, setMovies] = useState([])
@@ -102,7 +104,7 @@ const Home = () => {
     return (
         <>
             <SafeAreaView
-                className='bg-primary-100' style={{ backgroundColor: '#211f24', height: '100%', flex:1 }}>
+                className='bg-primary-100' style={{ backgroundColor: '#211f24', height: '100%', flex: 1 }}>
                 <ScrollView>
                     <View style={{ paddingHorizontal: 16, justifyContent: 'space-between', marginVertical: 28, overflow: 'hidden' }} className='border border-white'>
                         <View>
@@ -126,10 +128,12 @@ const Home = () => {
                                 <Ionicons name='search' size={24} color="white" />
                             </View>
                         </View>
-                        <NowPayingVideos/>
-                        {!isLoading ? <TrendingVideos /> : <ActivityIndicator size={'large'} />}
+                        <NowPayingVideos />
+                        <TrendingVideos />
+                        <TopRatedVideos />
                     </View>
                 </ScrollView>
+                <StatusBar backgroundColor='#161622' style='light' />
             </SafeAreaView>
         </>
     )
