@@ -3,25 +3,28 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import axios from 'axios'
 import { PureComponent } from 'react'
+import { router } from 'expo-router'
 
 
 const TrendingVideos = () => {
     const [isLoading, setIsLoading] = useState(true);
     // const [isLoadingMore, setIsLoadingMore] = useState(true);
-    const [movies, setMovies] = useState([])
+    const [movies, setMovies] = useState([]);
     const [currentPageMovies, setCurrentPageMovies] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [error, setError] = useState(null);
-
+    const getRoundedRating = (movie) => movie.vote_average.toFixed(1)
     const apiKey = process.env.EXPO_PUBLIC_API_KEY;
     const apiToken = process.env.EXPO_PUBLIC_API_TOKEN;
 
-    const getRoundedRating = (movie) => movie.vote_average.toFixed(1)
 
-    class MovieListItem extends PureComponent {
-        render() {
-            const { item, roundedRating } = this.props
-            return (
+    const MovieListItem = ({ item, roundedRating }) => {
+        const movieId = item.id
+        return (
+            <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => router.push({ pathname: `/moviedetails`, params: {movieId}})}
+            >
                 <View className='w-[150px] h-full mx-2.5 overflow-hidden flex-1'>
                     <View className='h-full flex-1 relative'>
                         <Image
@@ -43,9 +46,9 @@ const TrendingVideos = () => {
                             className='text-white font-pmedium p-1 ml-1 w-full'>{item.title}</Text>
                     </View>
                 </View>
-            );
-        }
-    }
+            </TouchableOpacity>
+        );
+    };
 
     useEffect(() => {
         getTrendingMovies();
@@ -100,7 +103,7 @@ const TrendingVideos = () => {
 
 
     return (
-        <View style={{marginBottom:30}}>
+        <View style={{ marginBottom: 30 }}>
             <Text className='text-white mb-4 font-psemibold text-lg'>Now Playing</Text>
             <View className='h-[300px]'>
                 <FlatList
